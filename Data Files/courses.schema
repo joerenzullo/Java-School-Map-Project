@@ -1,0 +1,16 @@
+CREATE TABLE courses (
+Status TEXT,
+Type TEXT,
+CRN INTEGER,
+Unit TEXT,
+Meet TEXT,
+Meeting_Time TEXT,
+Location TEXT,
+Cap INTEGER,
+Act INTEGER,
+Rem INTEGER,
+Instructor TEXT,
+Date TEXT,
+Weeks INTEGER,
+PRIMARY KEY (CRN)
+);

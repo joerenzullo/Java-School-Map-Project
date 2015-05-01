@@ -1,0 +1,10 @@
+# Virtual environment
+venv
+
+#pycharm auto generated files
+.idea
+
+students/data.sqlite
+
+# vagrant
+.vagrant
