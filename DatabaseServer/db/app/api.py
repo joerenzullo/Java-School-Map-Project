@@ -17,50 +17,75 @@ class ValidationError(ValueError):
     pass
 
 
-class Student(db.Model):
-    __tablename__ = 'students'
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(64), index=True)
+class Course(db.Model):
+    __tablename__ = 'courses'
+    Title = db.Column(db.Text)
+    Status = db.Column(db.Text)
+    Type = db.Column(db.Text)
+    CRN = db.Column(db.Integer, primary_key=True)
+    Unit = db.Column(db.Text)
+    Meet = db.Column(db.Text)
+    Meeting_Time = db.Column(db.Text)
+    Location = db.Column(db.Text)
+    Cap = db.Column(db.Integer)
+    Act = db.Column(db.Integer)
+    Rem = db.Column(db.Integer)
+    Instructor = db.Column(db.Text)
+    Date = db.Column(db.Text)
+    Weeks = db.Column(db.Integer)
 
     def get_url(self):
-        return url_for('get_student', id=self.id, _external=True)
+        return url_for('get_course', CRN=self.CRN, _external=True)
 
     def export_data(self):
         return {
             'self_url': self.get_url(),
-            'name': self.name
+            'Title': self.Title,
+            'Status': self.Status,
+            'Type': self.Type,
+            'CRN': self.CRN,
+            'Unit': self.Unit,
+            'Meet': self.Meet,
+            'Meeting_Time': self.Meeting_Time,
+            'Location': self.Location,
+            'Cap': self.Cap,
+            'Act': self.Act,
+            'Rem': self.Rem,
+            'Instructor': self.Instructor,
+            'Date': self.Date,
+            'Weeks': self.Weeks
         }
 
     def import_data(self, data):
         try:
-            self.name = data['name']
+            self.Title = data['Title']
         except KeyError as e:
-            raise ValidationError('Invalid student: missing ' + e.args[0])
+            raise ValidationError('Invalid course: missing ' + e.args[0])
         return self
 
 
-@app.route('/students/', methods=['GET'])
-def get_students():
-    return jsonify({'students': [student.get_url() for student in
-                                  Student.query.all()]})
+@app.route('/courses/', methods=['GET'])
+def get_courses():
+    return jsonify({'courses': [course.get_url() for course in
+                                  Course.query.all()]})
 
-@app.route('/students/<int:id>', methods=['GET'])
-def get_student(id):
-    return jsonify(Student.query.get_or_404(id).export_data())
+@app.route('/courses/<int:CRN>', methods=['GET'])
+def get_course(CRN):
+    return jsonify(Course.query.get_or_404(CRN).export_data())
 
-@app.route('/students/', methods=['POST'])
+@app.route('/courses/', methods=['POST'])
 def new_student():
-    student = Student()
-    student.import_data(request.json)
-    db.session.add(student)
+    course = Course()
+    course.import_data(request.json)
+    db.session.add(course)
     db.session.commit()
-    return jsonify({}), 201, {'Location': student.get_url()}
+    return jsonify({}), 201, {'Location': course.get_url()}
 
-@app.route('/students/<int:id>', methods=['PUT'])
-def edit_student(id):
-    student = Student.query.get_or_404(id)
-    student.import_data(request.json)
-    db.session.add(student)
+@app.route('/courses/<int:CRN>', methods=['PUT'])
+def edit_student(CRN):
+    course = Course.query.get_or_404(CRN)
+    course.import_data(request.json)
+    db.session.add(course)
     db.session.commit()
     return jsonify({})
 
@@ -72,8 +97,8 @@ def not_found(e):
 @app.route('/')
 def index():
     highlight = {'min': 1, 'max': 2}
-    students = Student.query.all()
-    return render_template('index.html', students=students, highlight=highlight)
+    courses = Course.query.all()
+    return render_template('index.html', courses=courses, highlight=highlight)
 
 if __name__ == '__main__':
     db.create_all()
