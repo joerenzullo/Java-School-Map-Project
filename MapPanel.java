@@ -79,7 +79,7 @@ public class MapPanel extends JPanel implements MouseListener
 		for(Building b : buildings)
 		{
 			if(b.isWithin(x, y))
-				System.out.println(b.name); // PRINTS OUT;
+				System.out.println(b.name); // PRINTS --------------------------------- LOOOK HERE.;
 			
 		}
 	}
