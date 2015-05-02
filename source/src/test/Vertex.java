@@ -3,7 +3,6 @@ package test;
 /**
  * a vertex- the basis of pathfinding via dijkstra's algorithm.
  * @author Bobby
- *
  */
 public class Vertex implements Comparable<Vertex>
 {

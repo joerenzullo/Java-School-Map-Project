@@ -1,12 +1,8 @@
-
 package test;
 
-/**
- *
- * @author joe
- */
 public class Course 
 {
+    public String Title;
     public String Status;
     public String Type;
     public String CRN;
@@ -20,12 +16,13 @@ public class Course
     public String Instructor;
     public String Date;
     public String Weeks;
-    
-    
-    public Course(String Status, String Type, String CRN, String Unit,
-            String Meet, String Meeting_Time, String Location, String Cap,
-            String Act, String Rem, String Instructor, String Date, String Weeks)
+      
+    public Course(String Title, String Status, String Type, String CRN, 
+            String Unit, String Meet, String Meeting_Time, String Location, 
+            String Cap, String Act, String Rem, String Instructor, String Date, 
+            String Weeks)
     {
+        this.Title = Title;
         this.Status = Status;
         this.Type = Type;
         this.CRN = CRN;
