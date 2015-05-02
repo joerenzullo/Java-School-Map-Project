@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package test;
 
 /**
@@ -26,11 +22,23 @@ public class Course
     public String Weeks;
     
     
-    public Course( public String Status, String Type, String CRN, String Unit,
+    public Course(String Status, String Type, String CRN, String Unit,
             String Meet, String Meeting_Time, String Location, String Cap,
             String Act, String Rem, String Instructor, String Date, String Weeks)
     {
-        
+        this.Status = Status;
+        this.Type = Type;
+        this.CRN = CRN;
+        this.Unit = Unit;
+        this.Meet = Meet;
+        this.Meet = Meeting_Time;
+        this.Location = Location;
+        this.Cap = Cap;
+        this.Act = Act;
+        this.Rem = Rem;
+        this.Instructor = Instructor;
+        this.Date = Date;
+        this.Weeks = Weeks;
     }
     
     

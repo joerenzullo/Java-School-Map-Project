@@ -20,7 +20,6 @@ public class SQLiteJDBC
       while ( rs.next() ) {
          String  CRN = rs.getString("CRN");
          System.out.println( "CRN = " + CRN );
-         
          System.out.println();
       }
       rs.close();
@@ -32,4 +31,9 @@ public class SQLiteJDBC
     }
     System.out.println("Operation done successfully");
   }
+  
+  
+  
+  
+  
 }
