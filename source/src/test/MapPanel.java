@@ -2,12 +2,9 @@ package test;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
-import javax.swing.event.MouseInputAdapter;
-
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import static java.awt.image.ImageObserver.ERROR;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -20,12 +17,14 @@ public class MapPanel extends JPanel implements MouseListener
 	public List<Vertex> path;
 	public int x, y;
 	public Building[] buildings;
+	boolean sourceClick;
 	
-	public MapPanel() throws IOException 
+	public MapPanel()
 	{
 		loadImage();
 		path = new ArrayList<Vertex>();
 		buildings = createBuildings();
+		sourceClick = true;
 		this.addMouseListener(this);
 	}
 	
@@ -77,13 +76,25 @@ public class MapPanel extends JPanel implements MouseListener
 		// TODO Auto-generated method stub
 		x = arg0.getX();
 		y = arg0.getY();
+		if(sourceClick)
+		{
+			sourceClick = false;
+			test.Map.sourceString = test.Map.user.findclosestVertexName(x, y);
+			test.Map.pathFind(test.Map.sourceString, test.Map.destinationString, test.Map.user, test.Map.panel);
+		}
+		else
+		{
+			sourceClick = true;
+			test.Map.destinationString = test.Map.user.findclosestVertexName(x, y);
+			test.Map.pathFind(test.Map.sourceString, test.Map.destinationString, test.Map.user, test.Map.panel);
+		}
 		for(Building b : buildings)
 		{
 			if(b.isWithin(x, y))
 				System.out.println(b.name); // PRINTS --------------------------------- LOOOK HERE.;
-			
 		}
 	}
+	
 
 	@Override
 	public void mouseEntered(MouseEvent e) 

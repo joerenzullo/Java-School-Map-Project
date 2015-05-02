@@ -27,7 +27,7 @@ public class User
     		if(v.name == Name)
     			return v;
     	}
-    	return PFD[29];
+    	return PFD[0];
     }
 	
 	/**
@@ -50,6 +50,20 @@ public class User
 		return Math.sqrt(Math.pow(source.posx-destination.posx, 2) + Math.pow(source.posy-destination.posy, 2));
 	}
 	
+	public String findclosestVertexName(int posx, int posy)
+	{
+		double lowestDistance = Integer.MAX_VALUE;
+		Vertex hold = PFD[0];
+		for(Vertex v : PFD)
+		{
+			if(lowestDistance > Math.sqrt(Math.pow(posx-v.posx, 2) + Math.pow(posy-v.posy, 2)))
+			{
+				hold = v;
+				lowestDistance = Math.sqrt(Math.pow(posx-v.posx, 2) + Math.pow(posy-v.posy, 2)); 
+			}
+		}
+		return hold.name;
+	}
 	/**
 	 * creates and fills an array of vertices that PFD will be set to.
 	 * @return an array of vertices that PFD will be set to.
@@ -67,7 +81,7 @@ public class User
     	Vertex VD = new Vertex ("VD", 285, 100); //
     	Vertex VIT = new Vertex ("VIT", 70, 285); //
     	Vertex VB = new Vertex ("VB", 120, 220); //
-    	Vertex VC = new Vertex("VC", 140, 190); //
+    	Vertex VC = new Vertex("VC", 365, 195); //
     	Vertex VG = new Vertex ("VG", 195, 190); //
     	Vertex VR = new Vertex ("VR", 210, 210); //
     	Vertex VZ = new Vertex ("VZ", 195, 245); //
@@ -90,7 +104,7 @@ public class User
     	Vertex VPLAZ = new Vertex ("VPLAZ", 490, 165); //
     	Vertex VAN = new Vertex ("VAN", 480, 385);
     	Vertex VS = new Vertex ("VS", 380, 400);
-    	
+
 		
 		/*
     	 * beginning of creation of Path-finding nodes which are used to
@@ -158,6 +172,43 @@ public class User
 		/**
 		 * beginning of creating the edges.
 		 */
+		
+		VHH.adjacencies = new Edge[]{new Edge(HH, pythagDistance(VHH, HH))};
+    	VL.adjacencies = new Edge[]{new Edge(L3, pythagDistance(VL, L3))}; 
+    	VCC.adjacencies = new Edge[]{new Edge(CC2, pythagDistance(VCC, CC2))};
+    	VD.adjacencies = new Edge[]{new Edge(D3, pythagDistance(VD, D3))};
+    	VIT.adjacencies = new Edge[]{new Edge(IT2, pythagDistance(VIT, IT2))};
+    	VB.adjacencies = new Edge[]{new Edge(B2, pythagDistance(VB, B2))};
+    	VC.adjacencies = new Edge[]{new Edge(R4, pythagDistance(VC, R4)),
+    								new Edge(C4, pythagDistance(VC, C4))};
+    	VG.adjacencies = new Edge[]{new Edge(G, pythagDistance(VG, G))};
+    	VZ.adjacencies = new Edge[]{new Edge(Z, pythagDistance(VZ, Z))};
+    	VR.adjacencies = new Edge[]{new Edge(G, pythagDistance(VR, G)),
+    								new Edge(Z, pythagDistance(VR, Z))};
+    	VE.adjacencies = new Edge[]{new Edge(E3, pythagDistance(VE, E3))};
+    	VLL.adjacencies = new Edge[]{new Edge(LL, pythagDistance(VLL, LL))};
+    	VU.adjacencies = new Edge[]{new Edge(U1, pythagDistance(VU, U1))};
+     	VUU.adjacencies = new Edge[]{new Edge(UU2, pythagDistance(VUU, UU2))};
+     	VW.adjacencies = new Edge[]{new Edge(W1, pythagDistance(VW, W1))};
+     	VLP.adjacencies = new Edge[]{new Edge(LP2, pythagDistance(VLP, LP2))};
+     	VP.adjacencies = new Edge[]{new Edge(P, pythagDistance(VP, P))};
+     	VO.adjacencies = new Edge[]{new Edge(O, pythagDistance(VO, O))};
+     	VFS.adjacencies = new Edge[]{new Edge(FS, pythagDistance(VFS, FS))};
+     	VFB.adjacencies = new Edge[]{new Edge(FB, pythagDistance(VFB, FB))};
+     	VFC.adjacencies = new Edge[]{new Edge(FC, pythagDistance(VFC, FC))};
+     	VGM.adjacencies = new Edge[]{new Edge(GM1, pythagDistance(VGM, GM1))};
+     	VCA.adjacencies = new Edge[]{new Edge(CA1, pythagDistance(VCA, CA1))};
+     	VV.adjacencies = new Edge[]{new Edge(V1, pythagDistance(VV, V1)),
+     								new Edge(V2, pythagDistance(VV, V2))};
+     	VSV.adjacencies = new Edge[]{new Edge(SV, pythagDistance(VSV, SV))};
+     	VAMP.adjacencies = new Edge[]{new Edge(AMP, pythagDistance(VAMP, AMP))};
+    	VPLAZ.adjacencies = new Edge[]{new Edge(PLAZ, pythagDistance(VPLAZ, PLAZ))};
+    	VAN.adjacencies = new Edge[]{new Edge(GM2, pythagDistance(VAN, GM2))};
+    	VS.adjacencies = new Edge[]{new Edge(STAD, pythagDistance(VS, STAD))};
+		
+		
+		
+		
 		L1.adjacencies = new Edge[]{new Edge(HH, pythagDistance(L1, HH)),
              						new Edge(CC1, pythagDistance(L1, CC1))};
 		HH.adjacencies = new Edge[]{new Edge(L1, pythagDistance(HH, L1)),
@@ -453,14 +504,6 @@ public class User
 		Vertex[] vertices = { VHH, VL, VCC, VD, VIT, VB, VC, VG, VR, VZ, VE, VLL, VU, VUU, VW, VLP, VP, VO, VFS, VFB, VFC, VGM, VCA, VV, VSV, VAMP, VPLAZ, VAN, VS,
 				L1, HH, L2, CC1, D1, D4, E1, CC2, L3, D2, D3, C1, C2, C3, E2, E3, PLAZ, LL, UU1, C4, U1, UU2, B1, B2, G, R4, IT1, R1, Z, R3, R5,
 				C5, C6, V2, AMP, W1, LP1, V1, U2, IT2, LP2, CA1, IT3, W2, FS, FC, GM1, CA2, P1, P, O, FB, GM2, P2, SV, STAD};
-		
-		/**
-		 * fills in the adjacencies for the dead end locations (buildings).
-		 */
-		for (int i = 0; i < 29; i++)
-		{
-			vertices[i].adjacencies = new Edge[]{};
-		}
 		
     	return vertices;
     }

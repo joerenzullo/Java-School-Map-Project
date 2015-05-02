@@ -10,7 +10,13 @@ import javax.swing.JFrame;
 
 public class Map 
 {
-
+	public static String sourceString;
+	public static String destinationString;
+	
+	public static User user = new User(0);
+	
+	public static MapPanel panel = new MapPanel();
+	
 	public static void main(String[] args) throws IOException 
 	{
 		/**
@@ -19,12 +25,6 @@ public class Map
 		final int FRAME_HEIGHT = 615;
 		final int FRAME_WIDTH = 690;
 		
-		String sourceString = "CC2";
-		String destinationString = "VSV";
-		
-		//MapFrame mapFrame = new MapFrame();
-		
-		MapPanel panel = new MapPanel();
 		JFrame frame = new JFrame();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().add(panel);
@@ -32,7 +32,10 @@ public class Map
 		frame.setSize(FRAME_WIDTH, FRAME_HEIGHT);
 		frame.setVisible(true);
 		
-		User user = new User(0);
+		
+		
+		sourceString = "VCC";
+		destinationString = "VCC";
 		
 		pathFind(sourceString, destinationString, user, panel);
 		
@@ -49,10 +52,12 @@ public class Map
 	{
 		computePaths(user.findVertexNamed(source));
         List<Vertex> path = getShortestPathTo(user.findVertexNamed(destination));
-        //System.out.println("Path: " + path);
+        System.out.println("Path: " + path);
         user.resetPFD();
 		panel.path = path;
+		panel.repaint();
 	}
+	
 	
 	/**
 	 *  used to initialize the pathfinding data to be from whatever vertex.
