@@ -1,2 +1,0 @@
-# javaproject
-THIS IS PROJECT
