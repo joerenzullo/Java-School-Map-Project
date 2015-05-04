@@ -69,9 +69,10 @@ def get_courses():
     return jsonify({'courses': [course.get_url() for course in
                                   Course.query.all()]})
 
-@app.route('/courses/<int:CRN>', methods=['GET'])
+@app.route('/courses/<CRN>', methods=['GET'])
 def get_course(CRN):
     return jsonify(Course.query.get_or_404(CRN).export_data())
+
 
 @app.route('/courses/', methods=['POST'])
 def new_student():
