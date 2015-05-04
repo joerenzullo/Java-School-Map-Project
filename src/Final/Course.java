@@ -1,5 +1,9 @@
 package Final;
 
+/**
+ * Database object representing a course
+ * @author Joe
+ */
 public class Course 
 {
     public String Title;

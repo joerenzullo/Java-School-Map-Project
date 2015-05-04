@@ -53,10 +53,15 @@ public class Vertex implements Comparable<Vertex>
     }
 }
 
+/**
+ * Simple container class for edge data
+ * @author Bobby
+ */
 class Edge
 {
     public final Vertex target;
     public final double weight;
+    
     /**
      * constructor for an edge- just needs the vertex it points to and the weight.
      * @param argTarget vertex it goes to.

@@ -8,6 +8,10 @@ import java.util.PriorityQueue;
 
 import javax.swing.JFrame;
 
+/**
+ * Map object which does the pathfinding
+ * @author Bobby
+ */
 public class Map 
 {
     public static String sourceString;
@@ -54,7 +58,7 @@ public class Map
 
 
     /**
-     *  used to initialize the pathfinding data to be from whatever vertex.
+     * used to initialize the pathfinding data to be from whatever vertex.
      * @param source the vertex to pathfind from to all the others. changes data in all of the vertices.
      */
     public static void computePaths(Vertex source)

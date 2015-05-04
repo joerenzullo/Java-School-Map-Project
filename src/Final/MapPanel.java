@@ -10,6 +10,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Main GUI - handles clicking, draws the path calculated by Map (with data from
+ * User).
+ * @author Bobby + Joe (but mostly Bobby)
+ */
 @SuppressWarnings("serial")
 public class MapPanel extends JPanel implements MouseListener
 {
@@ -19,6 +24,9 @@ public class MapPanel extends JPanel implements MouseListener
     public Building[] buildings;
     boolean sourceClick;
 
+    /**
+     * Constructs the map
+     */
     public MapPanel()
     {
         loadImage();
@@ -27,18 +35,20 @@ public class MapPanel extends JPanel implements MouseListener
         sourceClick = true;
         this.addMouseListener(this);
     }
-
+    
+    /**
+     * Draws the background at the top left corner, 
+     * draws a black line over the path before drawing a smaller black one
+     * for increased visibility of the path line.
+     * @param g graphics object
+     */
+    @Override
     protected void paintComponent(Graphics g)
     {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D)g;
-        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, 
-                                                RenderingHints.VALUE_ANTIALIAS_ON);
-        /**
-         *  Draws the background at the top left corner, 
-         *  draws a black line over the path before drawing a smaller black one
-         *  for increased visibility of the path line.
-         */
+        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+                RenderingHints.VALUE_ANTIALIAS_ON);
         g2.drawImage(image, 0, 0, this);
         g2.setPaint(Color.black);
         g2.setStroke(new BasicStroke(5.f, BasicStroke.CAP_SQUARE, BasicStroke.JOIN_MITER));
@@ -46,9 +56,12 @@ public class MapPanel extends JPanel implements MouseListener
         g2.setPaint(Color.red);
         g2.setStroke(new BasicStroke(3.f, BasicStroke.CAP_SQUARE, BasicStroke.JOIN_MITER));
         drawPath(g2);
-
-
     }
+    
+    /**
+     * Draws the path calculated by the Map class
+     * @param g graphics object
+     */
     private void drawPath(Graphics2D g)
     {
         for(int i = 0; i < path.size()-1; i++)
@@ -57,6 +70,9 @@ public class MapPanel extends JPanel implements MouseListener
         }
     }
 
+    /**
+     * Loads the map image (with error handling)
+     */
     private void loadImage()
     {
         try
@@ -69,13 +85,18 @@ public class MapPanel extends JPanel implements MouseListener
             System.exit(ERROR);
         }
     }
-
+    
+    /**
+     * Handles clicking logic (pathfinding function called, and database lookup
+     * function called, as appropriate
+     * @param click 
+     */
     @Override
-    public void mouseClicked(MouseEvent arg0) 
+    public void mouseClicked(MouseEvent click) 
     {
         // TODO Auto-generated method stub
-        x = arg0.getX();
-        y = arg0.getY();
+        x = click.getX();
+        y = click.getY();
         if(sourceClick)
         {
             sourceClick = false;
@@ -88,6 +109,8 @@ public class MapPanel extends JPanel implements MouseListener
             Final.Map.destinationString = Final.Map.user.findclosestVertexName(x, y);
             Final.Map.pathFind(Final.Map.sourceString, Final.Map.destinationString, Final.Map.user, Final.Map.panel);
         }
+        
+      
         for(Building b : buildings)
         {
             if(b.isWithin(x, y))
@@ -118,7 +141,10 @@ public class MapPanel extends JPanel implements MouseListener
         }
     }
 	
-
+    /**
+     * Needed to implement mouse
+     * @param e 
+     */
     @Override
     public void mouseEntered(MouseEvent e) 
     {
@@ -126,6 +152,10 @@ public class MapPanel extends JPanel implements MouseListener
         // do nothing
     }
 
+    /**
+     * needed to implement mouse
+     * @param e 
+     */
     @Override
     public void mouseExited(MouseEvent e) 
     {
@@ -133,6 +163,10 @@ public class MapPanel extends JPanel implements MouseListener
         // do nothing
     }
 
+    /**
+     * needed to implement mouse
+     * @param e 
+     */
     @Override
     public void mousePressed(MouseEvent e) 
     {
@@ -140,6 +174,10 @@ public class MapPanel extends JPanel implements MouseListener
         // do nothing
     }
 
+    /**
+     * needed to implement mouse
+     * @param e 
+     */
     @Override
     public void mouseReleased(MouseEvent e) 
     {
@@ -147,6 +185,10 @@ public class MapPanel extends JPanel implements MouseListener
         // do nothing
     }
 
+    /**
+     * constructs the list of buildings
+     * @return 
+     */
     private Building[] createBuildings()
     {
         Building CC = new Building("CC", 95, 67, 153, 180);

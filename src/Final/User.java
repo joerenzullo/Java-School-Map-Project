@@ -1,12 +1,17 @@
 package Final;
 
+/**
+ * Holds pathfinding data (so that multiple users are supported)
+ * @author Bobby
+ */
 public class User
 {
     public Vertex[] PFD;
     public int ID;
 
     /**
-     * constructor for a user- its main feature is its own unique set of pathfinding Data
+     * constructor for a user- its main feature is its own unique set of 
+     * pathfinding Data
      * @param id integer for what that user's number is.
      */
     public User(int id)
@@ -18,7 +23,8 @@ public class User
     /**
      * goes through the list of vertices and returns the one of the desired name. 
      * @param Name
-     * @return the vertices with the name. If it does not exist it returns the 30th- in this case, 'CC2' 
+     * @return the vertices with the name. 
+     * If it does not exist it returns the 30th- in this case, 'CC2' 
      */
     public Vertex findVertexNamed(String Name)
     {
@@ -40,7 +46,8 @@ public class User
     }
 
     /**
-     * simply a helper function used to return the double of the distance between two vertices.
+     * simply a helper function used to return the double of the distance 
+     * between two vertices.
      * @param source vertex one
      * @param destination vertex two
      * @return distance between the two vertices using their x and y positions.
@@ -496,9 +503,8 @@ public class User
         new Edge(P2, pythagDistance(STAD, P2)),
         new Edge(SV, pythagDistance(STAD, SV))};
 
-    /**
-     * Putting all of the now created vertices into an array.
-     */
+  
+    //Putting all of the now created vertices into an array.
     Vertex[] vertices = { VHH, VL, VCC, VD, VIT, VB, VC, VG, VR, VZ,
         VE, VLL, VU, VUU, VW, VLP, VP, VO, VFS, VFB, VFC, VGM, VCA, 
         VV, VSV, VAMP, VPLAZ, VAN, VS, L1, HH, L2, CC1, D1, D4, E1, 
