@@ -28,7 +28,9 @@ public class Vertex implements Comparable<Vertex>
     
     /**
      * returns the string representation of the vertex.
+     * @return a string describing the vertex
      */
+    @Override
     public String toString()
     { 
     	return name + "(" + posx + "," + posy +")";
@@ -37,7 +39,10 @@ public class Vertex implements Comparable<Vertex>
     /**
      * compares vertex to another by their mindistance- initually they will be equal, but after
      * compute paths is run, they can then be ordered by distance from the source vertex.
+     * @param other the vertex to compare to this one
+     * @return the delta minimum distance
      */
+    @Override
     public int compareTo(Vertex other)
     {
         return Double.compare(minDistance, other.minDistance);

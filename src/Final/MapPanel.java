@@ -47,8 +47,7 @@ public class MapPanel extends JPanel implements MouseListener
     {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D)g;
-        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-                RenderingHints.VALUE_ANTIALIAS_ON);
+        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g2.drawImage(image, 0, 0, this);
         g2.setPaint(Color.black);
         g2.setStroke(new BasicStroke(5.f, BasicStroke.CAP_SQUARE, BasicStroke.JOIN_MITER));
@@ -101,44 +100,18 @@ public class MapPanel extends JPanel implements MouseListener
         {
             sourceClick = false;
             Final.Map.sourceString = Final.Map.user.findclosestVertexName(x, y);
-            Final.Map.pathFind(Final.Map.sourceString, Final.Map.destinationString, Final.Map.user, Final.Map.panel);
+            Final.Map.pathFind(Final.Map.sourceString, Final.Map.destinationString, Final.Map.user, Final.Map.mapPanel);
         }
         else
         {
             sourceClick = true;
             Final.Map.destinationString = Final.Map.user.findclosestVertexName(x, y);
-            Final.Map.pathFind(Final.Map.sourceString, Final.Map.destinationString, Final.Map.user, Final.Map.panel);
+            Final.Map.pathFind(Final.Map.sourceString, Final.Map.destinationString, Final.Map.user, Final.Map.mapPanel);
         }
         
-      
-        for(Building b : buildings)
-        {
-            if(b.isWithin(x, y))
-            {
-            //DEBUG: System.out.println(b.name); // PRINTS --------------------------------- LOOOK HERE.;
-            String SQL = "SELECT * from courses WHERE Location LIKE '" + b.name + " %'";
-            ArrayList<Course> Courses = Final.SQLiteJDBC.execute_sql(SQL);
-
-            JFrame popup = new JFrame();
-            popup.setSize(500, 400);
-            popup.setTitle("Building Information");
-
-            JPanel popupPanel = new JPanel();
-            popup.add(popupPanel);
-
-
-            JTextArea textarea = new JTextArea(30,30);
-            JScrollPane scrollpane = new JScrollPane(textarea);
-            textarea.setEditable(false);
-            popupPanel.add(scrollpane);
-            for (Course course : Courses)
-            {
-                textarea.append(course.CRN + " | " + course.Title + "\n");
-            }
-
-            popup.setVisible(true);
-            }
-        }
+        //handle database lookup logic if applicable
+        Map.buildingClick(buildings, x, y);
+       
     }
 	
     /**

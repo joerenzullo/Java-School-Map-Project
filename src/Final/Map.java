@@ -1,5 +1,6 @@
 package Final;
 
+import java.awt.BorderLayout;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -7,36 +8,83 @@ import java.util.List;
 import java.util.PriorityQueue;
 
 import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 
 /**
  * Map object which does the pathfinding
- * @author Bobby
+ * @author Bobby and Joe
  */
 public class Map 
 {
     public static String sourceString;
     public static String destinationString;
     public static User user = new User(0);
-    public static MapPanel panel = new MapPanel();
+    public static MapPanel mapPanel = new MapPanel();
+    private static JPanel dataPanel = new JPanel();
+    private static JTextArea textarea = new JTextArea(38,33);
+    
+    
     public static void main(String[] args) throws IOException 
     {
-        /*
-         * create the map frame
-         */
-        final int FRAME_HEIGHT = 615;
-        final int FRAME_WIDTH = 690;
-
+        //default size for frame
+        final int FRAME_HEIGHT = 630;
+        final int FRAME_WIDTH = 1050;
+        
+        //handle layout
+        JPanel layoutPanel = new JPanel(new BorderLayout());
+        
+        //add the map panel
+        layoutPanel.add(mapPanel, BorderLayout.CENTER);
+        
+        //make the frame
         JFrame frame = new JFrame();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.getContentPane().add(panel);
+        frame.getContentPane().add(layoutPanel);
         frame.setTitle("Pathfinding Map");
         frame.setSize(FRAME_WIDTH, FRAME_HEIGHT);
-        frame.setVisible(true);
+        
+        //handle data panel
+        layoutPanel.add(dataPanel, BorderLayout.EAST);
+        JScrollPane scrollpane = new JScrollPane(textarea);
+        textarea.setEditable(false);
+        dataPanel.add(scrollpane);
+        dataPanel.setVisible(true);
+        
+        //set frame visible
+        frame.setVisible(true);  
 
+        //initialize with default
         sourceString = "VCC";
         destinationString = "VCC";
-        pathFind(sourceString, destinationString, user, panel);
-
+        pathFind(sourceString, destinationString, user, mapPanel);
+    }
+    
+    /**
+     * This method handles the logic when someone clicks on the map.
+     * @param buildings an array of Building objects
+     * @param x x coordinate of the click
+     * @param y y coordinate of the click
+     */
+    public static void buildingClick(Building[] buildings, int x, int y)
+    {
+        for(Building b : buildings)
+        {
+            if(b.isWithin(x, y))
+            {
+                String SQL = "SELECT * from courses WHERE Location LIKE '" + b.name + " %'";
+                ArrayList<Course> Courses = Final.SQLHandler.execute_sql(SQL);
+                textarea.setText("");
+                textarea.append("CRN     |  Course Title\n");
+                textarea.append("==================================\n");
+                for (Course course : Courses)
+                {
+                    textarea.append(course.CRN + " | " + course.Title + "\n");
+                }
+                textarea.repaint();
+            }
+        }
     }
 
     /**
@@ -54,6 +102,7 @@ public class Map
         user.resetPFD();
         panel.path = path;
         panel.repaint();
+        
     }
 
 
@@ -97,7 +146,9 @@ public class Map
     {
         List<Vertex> path = new ArrayList<Vertex>();
         for (Vertex vertex = target; vertex != null; vertex = vertex.previous)
-        path.add(vertex);
+        {
+            path.add(vertex);
+        }
         Collections.reverse(path);
         return path;
     }

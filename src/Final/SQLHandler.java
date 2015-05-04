@@ -7,7 +7,7 @@ import java.util.ArrayList;
  * Handles Database lookups
  * @author Joe
  */
-public class SQLiteJDBC
+public class SQLHandler
 {
     /**
      * This handles SQL queries to the database
@@ -26,7 +26,7 @@ public class SQLiteJDBC
            Class.forName("org.sqlite.JDBC");
            c = DriverManager.getConnection("jdbc:sqlite:data.sqlite");
            c.setAutoCommit(false);
-           System.out.println("Opened database successfully");
+           //System.out.println("Opened database successfully");
 
            stmt = c.createStatement();
            ResultSet rs = stmt.executeQuery(SQL);

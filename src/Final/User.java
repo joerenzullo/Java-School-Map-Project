@@ -56,7 +56,13 @@ public class User
     {
         return Math.sqrt(Math.pow(source.posx-destination.posx, 2) + Math.pow(source.posy-destination.posy, 2));
     }
-
+    
+    /**
+     * This finds the closest vertex to the clicked position
+     * @param posx x position of mouse
+     * @param posy y position of mouse
+     * @return 
+     */
     public String findclosestVertexName(int posx, int posy)
     {
         double lowestDistance = Integer.MAX_VALUE;
@@ -114,8 +120,9 @@ public class User
     Vertex VS = new Vertex ("VS", 380, 400);
 
     /*
-    beginning of creation of Path-finding nodes which are used to get to a building used as endpoints.
-    name, x pos, y pos. x and y are used for drawing lines and finding weights for edges.
+        beginning of creation of Path-finding nodes which are used to get to a
+        building used as endpoints. name, x pos, y pos, x and y are used for 
+        drawing lines and finding weights for edges.
     */
     Vertex L1 = new Vertex ("L1", 161, 42); // //
     Vertex HH = new Vertex ("HH", 207, 21); // //
