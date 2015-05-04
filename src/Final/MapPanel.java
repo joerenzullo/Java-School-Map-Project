@@ -1,4 +1,4 @@
-package test;
+package Final;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -79,14 +79,14 @@ public class MapPanel extends JPanel implements MouseListener
         if(sourceClick)
         {
             sourceClick = false;
-            test.Map.sourceString = test.Map.user.findclosestVertexName(x, y);
-            test.Map.pathFind(test.Map.sourceString, test.Map.destinationString, test.Map.user, test.Map.panel);
+            Final.Map.sourceString = Final.Map.user.findclosestVertexName(x, y);
+            Final.Map.pathFind(Final.Map.sourceString, Final.Map.destinationString, Final.Map.user, Final.Map.panel);
         }
         else
         {
             sourceClick = true;
-            test.Map.destinationString = test.Map.user.findclosestVertexName(x, y);
-            test.Map.pathFind(test.Map.sourceString, test.Map.destinationString, test.Map.user, test.Map.panel);
+            Final.Map.destinationString = Final.Map.user.findclosestVertexName(x, y);
+            Final.Map.pathFind(Final.Map.sourceString, Final.Map.destinationString, Final.Map.user, Final.Map.panel);
         }
         for(Building b : buildings)
         {
@@ -94,7 +94,7 @@ public class MapPanel extends JPanel implements MouseListener
             {
             //DEBUG: System.out.println(b.name); // PRINTS --------------------------------- LOOOK HERE.;
             String SQL = "SELECT * from courses WHERE Location LIKE '" + b.name + " %'";
-            ArrayList<Course> Courses = test.SQLiteJDBC.execute_sql(SQL);
+            ArrayList<Course> Courses = Final.SQLiteJDBC.execute_sql(SQL);
 
             JFrame popup = new JFrame();
             popup.setSize(500, 400);
